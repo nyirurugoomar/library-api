@@ -1,3 +1,5 @@
+import { User } from "../../auth/schemas/user.schema";
+import mongoose from "mongoose";
 export declare enum Category {
     ADVENTURE = "Adventure",
     CLASSICS = "Classics",
@@ -14,13 +16,14 @@ export declare class Book {
     author: string;
     price: number;
     category: Category;
+    user: User;
 }
-export declare const BookSchema: import("mongoose").Schema<Book, import("mongoose").Model<Book, any, any, any, import("mongoose").Document<unknown, any, Book> & Book & {
-    _id: import("mongoose").Types.ObjectId;
+export declare const BookSchema: mongoose.Schema<Book, mongoose.Model<Book, any, any, any, mongoose.Document<unknown, any, Book> & Book & {
+    _id: mongoose.Types.ObjectId;
 } & {
     __v: number;
-}, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, Book, import("mongoose").Document<unknown, {}, import("mongoose").FlatRecord<Book>> & import("mongoose").FlatRecord<Book> & {
-    _id: import("mongoose").Types.ObjectId;
+}, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, Book, mongoose.Document<unknown, {}, mongoose.FlatRecord<Book>> & mongoose.FlatRecord<Book> & {
+    _id: mongoose.Types.ObjectId;
 } & {
     __v: number;
 }>;

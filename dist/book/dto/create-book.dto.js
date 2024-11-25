@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateBookDto = void 0;
 const class_validator_1 = require("class-validator");
 const book_schema_1 = require("../schemas/book.schema");
+const user_schema_1 = require("../../auth/schemas/user.schema");
 class CreateBookDto {
 }
 exports.CreateBookDto = CreateBookDto;
@@ -40,4 +41,8 @@ __decorate([
     (0, class_validator_1.IsEnum)(book_schema_1.Category, { message: 'Please enter correct category' }),
     __metadata("design:type", String)
 ], CreateBookDto.prototype, "category", void 0);
+__decorate([
+    (0, class_validator_1.IsEmpty)({ message: 'You cannot pass user id' }),
+    __metadata("design:type", user_schema_1.User)
+], CreateBookDto.prototype, "user", void 0);
 //# sourceMappingURL=create-book.dto.js.map

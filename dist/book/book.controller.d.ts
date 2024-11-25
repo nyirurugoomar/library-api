@@ -7,7 +7,7 @@ export declare class BookController {
     private bookService;
     constructor(bookService: BookService);
     getAllBooks(query: ExpressQuery): Promise<Book[]>;
-    createBook(book: CreateBookDto): Promise<Book>;
+    createBook(book: CreateBookDto, req: any): Promise<Book>;
     getBook(id: string): Promise<Book>;
     updateBook(id: string, book: UpdateBookDto): Promise<Book>;
     deleteBook(id: string): Promise<Book>;

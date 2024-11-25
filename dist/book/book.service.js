@@ -39,8 +39,9 @@ let BookService = class BookService {
             .skip(skip);
         return books;
     }
-    async create(book) {
-        const res = await this.bookModel.create(book);
+    async create(book, user) {
+        const data = Object.assign(book, { user: user._id });
+        const res = await this.bookModel.create(data);
         return res;
     }
     async findById(id) {
