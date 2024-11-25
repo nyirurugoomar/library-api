@@ -44,6 +44,10 @@ let BookService = class BookService {
         return res;
     }
     async findById(id) {
+        const isValidId = mongoose.isValidObjectId(id);
+        if (!isValidId) {
+            throw new common_1.BadRequestException('Wrong ID.');
+        }
         const book = await this.bookModel.findById(id);
         if (!book) {
             throw new common_1.NotFoundException('Book not found.');
