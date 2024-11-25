@@ -18,6 +18,9 @@ const book_service_1 = require("./book.service");
 const create_book_dto_1 = require("./dto/create-book.dto");
 const update_book_dto_1 = require("./dto/update-book.dto");
 const passport_1 = require("@nestjs/passport");
+const role_decorator_1 = require("../auth/decorators/role.decorator");
+const role_enum_1 = require("../auth/enums/role.enum");
+const roles_guard_1 = require("../auth/guards/roles.guard");
 let BookController = class BookController {
     constructor(bookService) {
         this.bookService = bookService;
@@ -41,7 +44,8 @@ let BookController = class BookController {
 exports.BookController = BookController;
 __decorate([
     (0, common_1.Get)(),
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)()),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)(), roles_guard_1.RoleGuard),
+    (0, role_decorator_1.Roles)(role_enum_1.Role.Moderator, role_enum_1.Role.Admin),
     __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
