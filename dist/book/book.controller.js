@@ -21,8 +21,8 @@ let BookController = class BookController {
     constructor(bookService) {
         this.bookService = bookService;
     }
-    async getAllBooks() {
-        return this.bookService.findAll();
+    async getAllBooks(query) {
+        return this.bookService.findAll(query);
     }
     async createBook(book) {
         return this.bookService.create(book);
@@ -40,8 +40,9 @@ let BookController = class BookController {
 exports.BookController = BookController;
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], BookController.prototype, "getAllBooks", null);
 __decorate([
