@@ -11,4 +11,9 @@ export declare class BookController {
     getBook(id: string): Promise<Book>;
     updateBook(id: string, book: UpdateBookDto): Promise<Book>;
     deleteBook(id: string): Promise<Book>;
+    uploadImages(id: string, files: Array<Express.Multer.File>): Promise<import("mongoose").Document<unknown, {}, Book> & Book & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    }>;
 }

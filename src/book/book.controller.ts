@@ -1,4 +1,4 @@
-import { Body, Controller, Get,Param,Post,Put,Delete, Query, UseGuards, Req } from '@nestjs/common';
+import { Body, Controller, Get,Param,Post,Put,Delete, Query, UseGuards, Req, UseInterceptors, UploadedFiles, ParseFilePipeBuilder, HttpStatus } from '@nestjs/common';
 import { BookService } from './book.service';
 import { Book } from './schemas/book.schema';
 import { CreateBookDto } from './dto/create-book.dto';
@@ -6,9 +6,10 @@ import { UpdateBookDto } from './dto/update-book.dto';
 
 import {Query as ExpressQuery} from 'express-serve-static-core'
 import { AuthGuard } from '@nestjs/passport';
-import { Roles } from 'src/auth/decorators/role.decorator';
+import { Roles } from '../auth/decorators/role.decorator';
 import { Role } from '../auth/enums/role.enum';
 import { RoleGuard } from '../auth/guards/roles.guard';
+import { FilesInterceptor } from '@nestjs/platform-express';
 
 @Controller('books')
 export class BookController {
@@ -53,6 +54,30 @@ export class BookController {
         id:string
     ): Promise<Book>{
         return this.bookService.deleteById(id);
+    }
+
+
+
+    @Put('upload/:id')
+    @UseGuards(AuthGuard())
+    @UseInterceptors(FilesInterceptor('files'))
+    async uploadImages(
+     @Param('id') id:string,
+     @UploadedFiles(
+        new ParseFilePipeBuilder().addFileTypeValidator({
+            fileType: /(jpg|png|jpeg)$/,
+        })
+        .addMaxSizeValidator({
+            maxSize:10 * 1000,
+            message:'File must be less than 10kb'
+        })
+        .build({
+            errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY
+        })
+     ) files: Array <Express.Multer.File>
+
+    ){
+        return this.bookService.uploadImages(id,files)
     }
 
 }

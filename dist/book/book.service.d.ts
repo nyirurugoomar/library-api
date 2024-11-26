@@ -10,4 +10,9 @@ export declare class BookService {
     findById(id: string): Promise<Book>;
     updateById(id: string, book: Book): Promise<Book>;
     deleteById(id: string): Promise<Book>;
+    uploadImages(id: string, files: Array<Express.Multer.File>): Promise<mongoose.Document<unknown, {}, Book> & Book & {
+        _id: mongoose.Types.ObjectId;
+    } & {
+        __v: number;
+    }>;
 }

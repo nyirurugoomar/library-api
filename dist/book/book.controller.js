@@ -21,6 +21,7 @@ const passport_1 = require("@nestjs/passport");
 const role_decorator_1 = require("../auth/decorators/role.decorator");
 const role_enum_1 = require("../auth/enums/role.enum");
 const roles_guard_1 = require("../auth/guards/roles.guard");
+const platform_express_1 = require("@nestjs/platform-express");
 let BookController = class BookController {
     constructor(bookService) {
         this.bookService = bookService;
@@ -39,6 +40,9 @@ let BookController = class BookController {
     }
     async deleteBook(id) {
         return this.bookService.deleteById(id);
+    }
+    async uploadImages(id, files) {
+        return this.bookService.uploadImages(id, files);
     }
 };
 exports.BookController = BookController;
@@ -82,6 +86,25 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], BookController.prototype, "deleteBook", null);
+__decorate([
+    (0, common_1.Put)('upload/:id'),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)()),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FilesInterceptor)('files')),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.UploadedFiles)(new common_1.ParseFilePipeBuilder().addFileTypeValidator({
+        fileType: /(jpg|png|jpeg)$/,
+    })
+        .addMaxSizeValidator({
+        maxSize: 10 * 1000,
+        message: 'File must be less than 10kb'
+    })
+        .build({
+        errorHttpStatusCode: common_1.HttpStatus.UNPROCESSABLE_ENTITY
+    }))),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Array]),
+    __metadata("design:returntype", Promise)
+], BookController.prototype, "uploadImages", null);
 exports.BookController = BookController = __decorate([
     (0, common_1.Controller)('books'),
     __metadata("design:paramtypes", [book_service_1.BookService])

@@ -48,6 +48,10 @@ __decorate([
     __metadata("design:type", String)
 ], Book.prototype, "category", void 0);
 __decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", Array)
+], Book.prototype, "images", void 0);
+__decorate([
     (0, mongoose_1.Prop)({ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'User' }),
     __metadata("design:type", user_schema_1.User)
 ], Book.prototype, "user", void 0);

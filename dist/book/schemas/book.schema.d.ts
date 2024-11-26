@@ -16,6 +16,7 @@ export declare class Book {
     author: string;
     price: number;
     category: Category;
+    images?: object[];
     user: User;
 }
 export declare const BookSchema: mongoose.Schema<Book, mongoose.Model<Book, any, any, any, mongoose.Document<unknown, any, Book> & Book & {

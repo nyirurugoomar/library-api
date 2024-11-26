@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const book_schema_1 = require("./schemas/book.schema");
 const mongoose = require("mongoose");
+const aws_1 = require("../utils/aws");
 let BookService = class BookService {
     constructor(bookModel) {
         this.bookModel = bookModel;
@@ -63,6 +64,16 @@ let BookService = class BookService {
     }
     async deleteById(id) {
         return await this.bookModel.findByIdAndDelete(id);
+    }
+    async uploadImages(id, files) {
+        const book = await this.bookModel.findById(id);
+        if (!book) {
+            throw new common_1.NotFoundException('Book not found.');
+        }
+        const images = await (0, aws_1.uploadImages)(files);
+        book.images = images;
+        await book.save();
+        return book;
     }
 };
 exports.BookService = BookService;
