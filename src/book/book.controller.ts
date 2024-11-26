@@ -10,11 +10,13 @@ import { Roles } from '../auth/decorators/role.decorator';
 import { Role } from '../auth/enums/role.enum';
 import { RoleGuard } from '../auth/guards/roles.guard';
 import { FilesInterceptor } from '@nestjs/platform-express';
+import { SkipThrottle } from '@nestjs/throttler';
 
 @Controller('books')
 export class BookController {
     constructor(private bookService: BookService){}
     @Get()
+    @SkipThrottle()
     @UseGuards(AuthGuard(),RoleGuard)
     @Roles(Role.Moderator, Role.Admin)
     async getAllBooks(@Query()query : ExpressQuery): Promise<Book[]>{
@@ -68,8 +70,8 @@ export class BookController {
             fileType: /(jpg|png|jpeg)$/,
         })
         .addMaxSizeValidator({
-            maxSize:10 * 1000,
-            message:'File must be less than 10kb'
+            maxSize:1000 * 1000,
+            message:'File must be less than 10Mb'
         })
         .build({
             errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY
