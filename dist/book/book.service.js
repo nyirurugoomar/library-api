@@ -23,7 +23,7 @@ let BookService = class BookService {
         this.bookModel = bookModel;
     }
     async findAll(query) {
-        const resPerPage = 2;
+        const resPerPage = 10;
         const currentPage = Number(query.page) || 1;
         const skip = (currentPage - 1) * resPerPage;
         const keyword = query.keyword

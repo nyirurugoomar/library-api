@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateBookDto = void 0;
+const swagger_1 = require("@nestjs/swagger");
 const user_schema_1 = require("../../auth/schemas/user.schema");
 const book_schema_1 = require("../schemas/book.schema");
 const class_validator_1 = require("class-validator");
@@ -17,26 +18,31 @@ class UpdateBookDto {
 }
 exports.UpdateBookDto = UpdateBookDto;
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: 'The tittle of book' }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], UpdateBookDto.prototype, "title", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: 'The description of book' }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], UpdateBookDto.prototype, "description", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: 'The author of book' }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], UpdateBookDto.prototype, "author", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: 'The price of book' }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], UpdateBookDto.prototype, "price", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: 'The category of book' }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsEnum)(book_schema_1.Category, { message: 'Please enter correct category' }),
     __metadata("design:type", String)

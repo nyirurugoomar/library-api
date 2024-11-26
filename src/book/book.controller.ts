@@ -11,18 +11,49 @@ import { Role } from '../auth/enums/role.enum';
 import { RoleGuard } from '../auth/guards/roles.guard';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { SkipThrottle } from '@nestjs/throttler';
+import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { BookDto } from './dto/book.dto';
 
+
+@ApiBearerAuth()
 @Controller('books')
 export class BookController {
     constructor(private bookService: BookService){}
     @Get()
+    @ApiOperation({summary:'Fetch a list of books'})
+    @ApiResponse({
+        status:200,
+        description:"List of book fetched successfully"
+    })
+    @ApiNotFoundResponse({description:'Fail to fetch list of books'})
+    @ApiOkResponse({
+        description:'List of books retrived successfully',
+        type:BookDto,
+        isArray: true,    
+    })
     @SkipThrottle()
     @UseGuards(AuthGuard(),RoleGuard)
-    @Roles(Role.Moderator, Role.Admin)
-    async getAllBooks(@Query()query : ExpressQuery): Promise<Book[]>{
+    @Roles(Role.Moderator, Role.User)
+    async getAllBooks(
+        @Query()
+        query : ExpressQuery): Promise<Book[]>{
         return this.bookService.findAll(query);
     }
     @Post()
+    @ApiOperation({summary:'Create new book'})
+    @ApiCreatedResponse({
+        description:"Book created successfully"
+    })
+    @ApiOkResponse({
+        description:'Book created successfully',
+        type:CreateBookDto,
+        isArray: true
+    })
+    @ApiBadRequestResponse({
+        description:'Invalid data provided',
+        
+    })
+
     @UseGuards(AuthGuard())
     async createBook(
         @Body()
@@ -34,6 +65,9 @@ export class BookController {
     }
 
     @Get(':id')
+    @ApiOperation({summary:'Fetch book by id'})
+    @ApiResponse({description:"Book found"})
+    @ApiNotFoundResponse({description:'Book not found.'})
     async getBook(
         @Param('id')
         id:string

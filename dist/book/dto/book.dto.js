@@ -9,62 +9,54 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateBookDto = void 0;
-const class_validator_1 = require("class-validator");
-const book_schema_1 = require("../schemas/book.schema");
-const user_schema_1 = require("../../auth/schemas/user.schema");
+exports.BookDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
-class CreateBookDto {
+const book_schema_1 = require("../schemas/book.schema");
+const class_validator_1 = require("class-validator");
+class BookDto {
 }
-exports.CreateBookDto = CreateBookDto;
+exports.BookDto = BookDto;
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'The tittle of book',
         example: 'The Great Gatsby'
     }),
-    (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], CreateBookDto.prototype, "title", void 0);
+], BookDto.prototype, "title", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'The description of book',
         example: 'A tragic tale of the human condition'
     }),
-    (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], CreateBookDto.prototype, "description", void 0);
+], BookDto.prototype, "description", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'The author of book',
         example: 'F. Scott Fitzgerald'
     }),
-    (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], CreateBookDto.prototype, "author", void 0);
+], BookDto.prototype, "author", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'The price of book',
-        example: 15.99
+        example: 15.99,
+        type: 'number',
+        format: 'decimal'
     }),
-    (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
-], CreateBookDto.prototype, "price", void 0);
+], BookDto.prototype, "price", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'The category of book',
         example: book_schema_1.Category.ADVENTURE,
         enum: book_schema_1.Category,
     }),
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsEnum)(book_schema_1.Category, { message: 'Please enter correct category' }),
+    (0, class_validator_1.IsEnum)(book_schema_1.Category),
     __metadata("design:type", String)
-], CreateBookDto.prototype, "category", void 0);
-__decorate([
-    (0, class_validator_1.IsEmpty)({ message: 'You cannot pass user id' }),
-    __metadata("design:type", user_schema_1.User)
-], CreateBookDto.prototype, "user", void 0);
-//# sourceMappingURL=create-book.dto.js.map
+], BookDto.prototype, "category", void 0);
+//# sourceMappingURL=book.dto.js.map

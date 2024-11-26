@@ -16,7 +16,7 @@ export class BookService {
   //GET ALL BOOK
   async findAll(query: Query): Promise<Book[]> {
     //Pagination
-    const resPerPage = 2;
+    const resPerPage = 10;
     const currentPage = Number(query.page) || 1;
     const skip = (currentPage - 1) * resPerPage;
     //Search query filter for book
