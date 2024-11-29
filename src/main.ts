@@ -8,7 +8,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const config = new DocumentBuilder()
     .setTitle('Library api')
-    .setDescription('The Library API description')
+    .setDescription('It library rest api documentation')
     .setVersion('1.0')
     .addBearerAuth()
     .build();

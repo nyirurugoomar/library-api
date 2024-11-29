@@ -114,7 +114,7 @@ export class BookController {
   @Delete(':id')
   @ApiOperation({summary:'Delete book by id'})
   @ApiResponse({status:200,description: 'Book deleted successfully'})
-  @ApiNotFoundResponse({description:'Id of book not found'})
+  @ApiNotFoundResponse({description:'Book id not found'})
   async deleteBook(
     @Param('id')
     id: string,

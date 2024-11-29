@@ -120,7 +120,7 @@ __decorate([
     (0, common_1.Delete)(':id'),
     (0, swagger_1.ApiOperation)({ summary: 'Delete book by id' }),
     (0, swagger_1.ApiResponse)({ status: 200, description: 'Book deleted successfully' }),
-    (0, swagger_1.ApiNotFoundResponse)({ description: 'Id of book not found' }),
+    (0, swagger_1.ApiNotFoundResponse)({ description: 'Book id not found' }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
